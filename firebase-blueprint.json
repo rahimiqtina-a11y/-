@@ -1,0 +1,270 @@
+{
+  "entities": {
+    "Job": {
+      "title": "Job Advertisement",
+      "description": "A job listing advertisement across Gulf Cooperation Council countries",
+      "type": "object",
+      "properties": {
+        "titleAr": { "type": "string", "maxLength": 200 },
+        "titleEn": { "type": "string", "maxLength": 200 },
+        "companyNameAr": { "type": "string", "maxLength": 150 },
+        "companyNameEn": { "type": "string", "maxLength": 150 },
+        "companyLogoUrl": { "type": "string", "maxLength": 1000 },
+        "countryId": { "type": "string", "maxLength": 50 },
+        "countryNameAr": { "type": "string", "maxLength": 100 },
+        "countryNameEn": { "type": "string", "maxLength": 100 },
+        "city": { "type": "string", "maxLength": 100 },
+        "categoryId": { "type": "string", "maxLength": 100 },
+        "categoryNameAr": { "type": "string", "maxLength": 100 },
+        "categoryNameEn": { "type": "string", "maxLength": 100 },
+        "descriptionAr": { "type": "string", "maxLength": 10000 },
+        "descriptionEn": { "type": "string", "maxLength": 10000 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "hasImageOnly": { "type": "boolean" },
+        "adFormat": { "type": "string", "maxLength": 20 },
+        "minSalary": { "type": "number" },
+        "maxSalary": { "type": "number" },
+        "salaryCurrency": { "type": "string", "maxLength": 10 },
+        "salaryDisclosed": { "type": "boolean" },
+        "employmentType": { "type": "string", "maxLength": 50 },
+        "experienceLevel": { "type": "string", "maxLength": 50 },
+        "educationLevel": { "type": "string", "maxLength": 100 },
+        "skills": { "type": "string", "maxLength": 500 },
+        "workingHours": { "type": "string", "maxLength": 100 },
+        "benefits": { "type": "string", "maxLength": 1000 },
+        "applicationDeadline": { "type": "string", "maxLength": 50 },
+        "contactPhone": { "type": "string", "maxLength": 50 },
+        "contactWhatsapp": { "type": "string", "maxLength": 50 },
+        "contactEmail": { "type": "string", "maxLength": 100 },
+        "applicationUrl": { "type": "string", "maxLength": 1000 },
+        "publishedAt": { "type": "string", "maxLength": 50 },
+        "expiresAt": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["draft", "published", "expired", "filled"] },
+        "isFeatured": { "type": "boolean" },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["titleAr", "titleEn", "countryId", "categoryId", "status", "salaryCurrency", "salaryDisclosed", "createdBy"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Bilingual user profile for job seekers and employers",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 150 },
+        "displayName": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 1000 },
+        "role": { "type": "string", "enum": ["job_seeker", "employer", "admin"] },
+        "headline": { "type": "string", "maxLength": 200 },
+        "countryId": { "type": "string", "maxLength": 50 },
+        "city": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "whatsapp": { "type": "string", "maxLength": 50 },
+        "bio": { "type": "string", "maxLength": 5000 },
+        "skills": { "type": "string", "maxLength": 1000 },
+        "experienceYears": { "type": "string", "maxLength": 50 },
+        "education": { "type": "string", "maxLength": 200 },
+        "companyName": { "type": "string", "maxLength": 150 },
+        "isSeekingJob": { "type": "boolean" },
+        "hasCompletedOnboarding": { "type": "boolean" },
+        "isEmployerApproved": { "type": "boolean" },
+        "canPublishJobs": { "type": "boolean" },
+        "publishingAccessExpiresAt": { "type": "string", "maxLength": 50 },
+        "publishingDurationType": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "JobSeeker": {
+      "title": "Job Seeker Listing",
+      "description": "Public profile and ad for job seekers looking for employment in GCC",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 1000 },
+        "targetJobTitle": { "type": "string", "maxLength": 200 },
+        "countryId": { "type": "string", "maxLength": 50 },
+        "countryNameAr": { "type": "string", "maxLength": 100 },
+        "city": { "type": "string", "maxLength": 100 },
+        "categoryId": { "type": "string", "maxLength": 100 },
+        "categoryNameAr": { "type": "string", "maxLength": 100 },
+        "summary": { "type": "string", "maxLength": 5000 },
+        "experienceYears": { "type": "string", "maxLength": 50 },
+        "education": { "type": "string", "maxLength": 200 },
+        "skills": { "type": "string", "maxLength": 1000 },
+        "expectedSalary": { "type": "string", "maxLength": 50 },
+        "salaryCurrency": { "type": "string", "maxLength": 10 },
+        "whatsapp": { "type": "string", "maxLength": 50 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 150 },
+        "isBoosted": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["active", "inactive"] },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "name", "targetJobTitle", "countryId", "categoryId", "status"]
+    },
+    "Message": {
+      "title": "Admin Message / Employer Request",
+      "description": "Inquiry and vacancy publishing request sent to platform administrator",
+      "type": "object",
+      "properties": {
+        "senderUid": { "type": "string", "maxLength": 128 },
+        "senderName": { "type": "string", "maxLength": 150 },
+        "senderEmail": { "type": "string", "maxLength": 150 },
+        "senderPhone": { "type": "string", "maxLength": 50 },
+        "companyName": { "type": "string", "maxLength": 150 },
+        "subject": { "type": "string", "maxLength": 200 },
+        "message": { "type": "string", "maxLength": 5000 },
+        "jobDetails": { "type": "string", "maxLength": 5000 },
+        "countryId": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["unread", "read", "replied"] },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["senderUid", "senderName", "senderEmail", "message", "status", "createdAt"]
+    },
+    "Category": {
+      "title": "Job Category",
+      "description": "Bilingual category for classifying jobs",
+      "type": "object",
+      "properties": {
+        "nameAr": { "type": "string", "maxLength": 150 },
+        "nameEn": { "type": "string", "maxLength": 150 },
+        "icon": { "type": "string", "maxLength": 50 },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["nameAr", "nameEn", "isActive"]
+    },
+    "Country": {
+      "title": "GCC Country",
+      "description": "Supported GCC country with managed cities and currency",
+      "type": "object",
+      "properties": {
+        "nameAr": { "type": "string", "maxLength": 100 },
+        "nameEn": { "type": "string", "maxLength": 100 },
+        "currencyCode": { "type": "string", "maxLength": 10 },
+        "currencySymbolAr": { "type": "string", "maxLength": 20 },
+        "currencySymbolEn": { "type": "string", "maxLength": 20 },
+        "cities": { "type": "string", "maxLength": 2000 },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["nameAr", "nameEn", "currencyCode", "isActive"]
+    },
+    "Admin": {
+      "title": "Platform Administrator",
+      "description": "Authorized administrator user profile",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 150 },
+        "role": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["email", "role"]
+    },
+    "AdBanner": {
+      "title": "Ad Banner",
+      "description": "Promotional and sponsored banners placed on home page or specific categories linked to external websites",
+      "type": "object",
+      "properties": {
+        "titleAr": { "type": "string", "maxLength": 200 },
+        "titleEn": { "type": "string", "maxLength": 200 },
+        "subtitleAr": { "type": "string", "maxLength": 300 },
+        "subtitleEn": { "type": "string", "maxLength": 300 },
+        "callToActionAr": { "type": "string", "maxLength": 100 },
+        "callToActionEn": { "type": "string", "maxLength": 100 },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "targetUrl": { "type": "string", "maxLength": 1000 },
+        "placement": { "type": "string", "enum": ["home", "category", "all_categories", "global"] },
+        "bannerType": { "type": "string", "enum": ["image", "code", "smart_link"] },
+        "customCode": { "type": "string", "maxLength": 10000 },
+        "badgeTextAr": { "type": "string", "maxLength": 100 },
+        "badgeTextEn": { "type": "string", "maxLength": 100 },
+        "cardTheme": { "type": "string", "maxLength": 50 },
+        "categoryId": { "type": "string", "maxLength": 100 },
+        "categoryNameAr": { "type": "string", "maxLength": 100 },
+        "categoryNameEn": { "type": "string", "maxLength": 100 },
+        "isActive": { "type": "boolean" },
+        "clicksCount": { "type": "number" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["titleAr", "placement", "isActive"]
+    },
+    "JobApplication": {
+      "title": "Job Application",
+      "description": "Resume and job application submitted directly by a job seeker to the employer's office",
+      "type": "object",
+      "properties": {
+        "jobId": { "type": "string", "maxLength": 128 },
+        "jobTitleAr": { "type": "string", "maxLength": 200 },
+        "jobTitleEn": { "type": "string", "maxLength": 200 },
+        "companyNameAr": { "type": "string", "maxLength": 150 },
+        "companyNameEn": { "type": "string", "maxLength": 150 },
+        "employerId": { "type": "string", "maxLength": 128 },
+        "applicantUid": { "type": "string", "maxLength": 128 },
+        "applicantName": { "type": "string", "maxLength": 150 },
+        "applicantEmail": { "type": "string", "maxLength": 150 },
+        "applicantPhone": { "type": "string", "maxLength": 50 },
+        "applicantWhatsapp": { "type": "string", "maxLength": 50 },
+        "resumeUrl": { "type": "string", "maxLength": 500000 },
+        "resumeFileName": { "type": "string", "maxLength": 255 },
+        "resumeFileType": { "type": "string", "maxLength": 100 },
+        "resumeStorageType": { "type": "string", "maxLength": 50 },
+        "totalChunks": { "type": "number" },
+        "coverNote": { "type": "string", "maxLength": 5000 },
+        "experienceYears": { "type": "string", "maxLength": 50 },
+        "status": { "type": "string", "enum": ["new", "reviewing", "shortlisted", "accepted", "rejected"] },
+        "employerNotes": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "string", "maxLength": 50 },
+        "updatedAt": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["jobId", "employerId", "applicantName", "applicantEmail", "applicantPhone", "resumeUrl", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/jobs/{jobId}": {
+      "schema": { "$ref": "#/entities/Job" },
+      "description": "Published and managed job advertisements"
+    },
+    "/applications/{applicationId}": {
+      "schema": { "$ref": "#/entities/JobApplication" },
+      "description": "Direct job applications and resumes submitted to employers"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Registered user profile with role selection"
+    },
+    "/job_seekers/{seekerId}": {
+      "schema": { "$ref": "#/entities/JobSeeker" },
+      "description": "Published job seeker profiles and search advertisements"
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Employer inquiries and publishing requests sent to admin"
+    },
+    "/banners/{bannerId}": {
+      "schema": { "$ref": "#/entities/AdBanner" },
+      "description": "Configurable advertising banners on home or category views"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Job categories classification"
+    },
+    "/countries/{countryId}": {
+      "schema": { "$ref": "#/entities/Country" },
+      "description": "GCC country and city definitions"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Authorized admin users with management privileges"
+    }
+  }
+}

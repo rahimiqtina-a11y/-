@@ -1,0 +1,107 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        request.auth.token.email.lower() == 'rahimiqtina@gmail.com' ||
+        request.auth.token.email.lower() == 'chtaha1995@gmail.com'
+      );
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow get: if isSignedIn() && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && isValidId(adminId) && (
+        isAdmin() ||
+        request.auth.token.email.lower() == 'rahimiqtina@gmail.com' || 
+        request.auth.token.email.lower() == 'chtaha1995@gmail.com'
+      );
+      allow update, delete: if isAdmin();
+    }
+
+    // User Profiles
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create, update: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Job seekers directory (public profiles created by job seekers)
+    match /job_seekers/{seekerId} {
+      allow read: if true;
+      allow create: if isSignedIn() && (request.resource.data.userId == request.auth.uid || isAdmin());
+      allow update: if isSignedIn() && ((resource.data.userId == request.auth.uid && request.resource.data.userId == request.auth.uid) || isAdmin());
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+    }
+
+    // Messages and employer vacancy requests sent to administrator
+    match /messages/{messageId} {
+      allow get: if isSignedIn() && (resource.data.senderUid == request.auth.uid || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isSignedIn() && request.resource.data.senderUid == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // Job advertisements
+    match /jobs/{jobId} {
+      allow get: if (resource.data.status == 'published') || isAdmin() || (isSignedIn() && resource.data.createdBy == request.auth.uid);
+      allow list: if (resource.data.status == 'published') || isAdmin() || (isSignedIn() && resource.data.createdBy == request.auth.uid);
+      allow create: if (isAdmin() || (isSignedIn() && request.resource.data.createdBy == request.auth.uid)) && isValidId(jobId);
+      allow update, delete: if (isAdmin() || (isSignedIn() && resource.data.createdBy == request.auth.uid)) && isValidId(jobId);
+    }
+
+    // Direct Job Applications & Resumes to Employers Office
+    match /applications/{applicationId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(applicationId);
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+
+      // Secure Subcollection for chunked resume file storage
+      match /resume_chunks/{chunkId} {
+        allow read: if isSignedIn();
+        allow create: if isSignedIn() && isValidId(applicationId) && isValidId(chunkId);
+        allow delete: if isSignedIn();
+      }
+    }
+
+    // Categories (Public reference catalog)
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(categoryId);
+    }
+
+    // Advertising Banners (Home & Categories)
+    match /banners/{bannerId} {
+      allow read: if true;
+      allow create, delete: if isAdmin() && isValidId(bannerId);
+      allow update: if (isAdmin() && isValidId(bannerId)) || 
+        (resource.data.isActive == true && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['clicksCount']));
+    }
+
+    // GCC Countries and Cities (Public reference catalog)
+    match /countries/{countryId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(countryId);
+    }
+  }
+}
+

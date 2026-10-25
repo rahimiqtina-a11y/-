@@ -1,0 +1,6 @@
+{
+  "name": "Gulf Jobs | وظائف الخليج",
+  "description": "Bilingual GCC job search platform across Qatar, UAE, Saudi Arabia, Oman, Kuwait, and Bahrain with verified listings and secure admin portal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
